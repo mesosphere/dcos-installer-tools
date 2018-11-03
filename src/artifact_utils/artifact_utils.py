@@ -59,36 +59,36 @@ def get_dcos_installer_details(
         ValueError: A space is in the installer path.
         CalledProcessError: There was an error extracting the given installer.
     """
-        if ' ' in str(installer):
-            message = 'No spaces allowed in path to the installer.'
-            raise ValueError(message)
+    if ' ' in str(installer):
+        message = 'No spaces allowed in path to the installer.'
+        raise ValueError(message)
 
-        if keep_extracted:
-            pass
+    if keep_extracted:
+        pass
 
-        result = subprocess.check_output(
-            args=['bash', str(installer), '--version'],
-            cwd=str(workspace_dir),
-            stderr=subprocess.PIPE,
-        )
+    result = subprocess.check_output(
+        args=['bash', str(installer), '--version'],
+        cwd=str(workspace_dir),
+        stderr=subprocess.PIPE,
+    )
 
-        result = result.decode()
-        result = ' '.join(
-            [
-                line for line in result.splitlines()
-                if not line.startswith('Extracting image')
-                and not line.startswith('Loaded image') and '.tar' not in line
-            ],
-        )
+    result = result.decode()
+    result = ' '.join(
+        [
+            line for line in result.splitlines()
+            if not line.startswith('Extracting image')
+            and not line.startswith('Loaded image') and '.tar' not in line
+        ],
+    )
 
-        version_info = json.loads(result)
-        variant = version_info['variant']
+    version_info = json.loads(result)
+    variant = version_info['variant']
 
-        self.version = version_info['version']
-        self.variant = {
-            'ee': DCOSVariant.ENTERPRISE,
-            '': DCOSVariant.OSS,
-        }[variant]
+    self.version = version_info['version']
+    self.variant = {
+        'ee': DCOSVariant.ENTERPRISE,
+        '': DCOSVariant.OSS,
+    }[variant]
 
-        if not keep_extracted:
-            shutil.rmtree(path=str(workspace_dir))
+    if not keep_extracted:
+        shutil.rmtree(path=str(workspace_dir))

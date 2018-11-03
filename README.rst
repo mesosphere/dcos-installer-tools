@@ -30,5 +30,5 @@ By default, the extracted artifact is removed.
 
 Exceptions which may be raised include:
 
-    ``ValueError``: A space was in the path to the artifact.
-    ``CalledProcessError``: An error was encountered when extracting the given artifact.
+* ``ValueError``: A space was in the path to the artifact.
+* ``CalledProcessError``: An error was encountered when extracting the given artifact.

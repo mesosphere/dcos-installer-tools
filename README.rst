@@ -22,9 +22,11 @@ Installation
    assert details.variant == DCOSVariant.OSS
 
 Determining details about the artifact requires extracting the artifact.
-Extracting the artifact requires hundreds of megabytes of space in a workspace directory.
+Extracting the artifact requires over a gigabyte of space in a workspace directory.
 By default, this directory is the result of ``tempfile.gettempdir()``.
 It is possible to use the ``workspace_dir`` parameter of ``DCOSArtifactDetails.__init__`` to set a workspace directory ``pathlib.Path``.
+
+By default, the extracted artifact is removed.
 
 Exceptions which may be raised include:
 

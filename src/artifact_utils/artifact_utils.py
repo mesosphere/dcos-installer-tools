@@ -66,8 +66,10 @@ def get_dcos_installer_details(
         raise ValueError(message)
 
     workspace_dir = workspace_dir or Path(gettempdir())
-    if keep_extracted:
-        pass
+    if not keep_extracted:
+        workspace_dir = Path(workspace_dir) / uuid.uuid4().hex
+
+    workspace_dir.mkdir(exist_ok=True, parents=True)
 
     result = subprocess.check_output(
         args=['bash', str(installer), '--version'],

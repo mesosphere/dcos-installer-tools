@@ -24,7 +24,7 @@ Installation
 Determining details about the artifact requires extracting the artifact.
 Extracting the artifact requires hundreds of megabytes of space in a workspace directory.
 By default, this directory is the result of ``tempfile.gettempdir()``.
-It is possible to use the ``workspace_dir`` parameter of ``DCOSArtifactDetails.__init__`` to set a workspace directory ``Path``.
+It is possible to use the ``workspace_dir`` parameter of ``DCOSArtifactDetails.__init__`` to set a workspace directory ``pathlib.Path``.
 
 Exceptions which may be raised include:
 

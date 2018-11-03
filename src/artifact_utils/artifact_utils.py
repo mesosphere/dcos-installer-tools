@@ -2,6 +2,11 @@
 Tools for getting details from DC/OS installer artifacts.
 """
 
+import shutil
+from enum import Enum
+from pathlib import Path
+
+
 class DCOSVariant(Enum):
     """
     Variants of DC/OS.
@@ -11,39 +16,54 @@ class DCOSVariant(Enum):
     ENTERPRISE = 2
 
 
-class DCOSInstallerUti:
+class _DCOSInstallerDetails:
     """
-    Details of a DC/OS Artifact.
-    """
+    Details of a DC/OS installer.
 
-    def __init__(
-        self,
-        installer: Path,
-        workspace_dir: Path,
-        keep_extracted: bool = False,
-    ):
-        """
-        Get details from a DC/OS artifact.
-
-        Args:
-            installer: The path to a DC/OS installer. This cannot include a
-                space.
-            workspace_dir: The directory in which large temporary files will be
-                created.
-                This is equivalent to `dir` in :py:func:`tempfile.mkstemp`.
-            keep_extracted: Whether to keep the extracted artifact.
-
-        Attributes:
-            variant: The DC/OS variant which can be installed using the given
+    Attributes:
+        variant: The DC/OS variant which can be installed by a particular
             installer.
+        version: The version of DC/OS which can be installed by a particular
+            installer.
+    """
 
-        Raises:
-            ValueError: A space is in the build artifact path.
-            CalledProcessError: XXX
+    def __init__(self, variant: DCOSVariant, version: str) -> None:
         """
+        Args:
+            variant: The DC/OS variant which can be installed by a particular
+                installer.
+            version: The version of DC/OS which can be installed by a
+                particular installer.
+        """
+        pass
+
+def get_dcos_installer_details(
+    installer: Path,
+    workspace_dir: Path,
+    keep_extracted: bool = False,
+) -> _DCOSInstallerDetails:
+    """
+    Get details from a DC/OS artifact.
+
+    Args:
+        installer: The path to a DC/OS installer. This cannot include a
+            space.
+        workspace_dir: The directory in which large temporary files will be
+            created.
+            This is equivalent to `dir` in :py:func:`tempfile.mkstemp`.
+        keep_extracted: Whether to keep the extracted artifact.
+
+
+    Raises:
+        ValueError: A space is in the build artifact path.
+        CalledProcessError: XXX
+    """
         if ' ' in str(installer):
             message = 'No spaces allowed in path to the build artifact.'
             raise ValueError(message)
+
+        if keep_extracted:
+            pass
 
         result = subprocess.check_output(
             args=['bash', str(installer), '--version'],
@@ -68,3 +88,6 @@ class DCOSInstallerUti:
             'ee': DCOSVariant.ENTERPRISE,
             '': DCOSVariant.OSS,
         }[variant]
+
+        if not keep_extracted:
+            shutil.rmtree(path=str(workspace_dir))

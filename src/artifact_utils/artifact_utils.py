@@ -35,7 +35,9 @@ class _DCOSInstallerDetails:
             version: The version of DC/OS which can be installed by a
                 particular installer.
         """
-        pass
+        self.variant = variant
+        self.version = version
+
 
 def get_dcos_installer_details(
     installer: Path,
@@ -53,13 +55,12 @@ def get_dcos_installer_details(
             This is equivalent to `dir` in :py:func:`tempfile.mkstemp`.
         keep_extracted: Whether to keep the extracted artifact.
 
-
     Raises:
-        ValueError: A space is in the build artifact path.
-        CalledProcessError: XXX
+        ValueError: A space is in the installer path.
+        CalledProcessError: There was an error extracting the given installer.
     """
         if ' ' in str(installer):
-            message = 'No spaces allowed in path to the build artifact.'
+            message = 'No spaces allowed in path to the installer.'
             raise ValueError(message)
 
         if keep_extracted:

@@ -5,6 +5,8 @@ Tools for getting details from DC/OS installer artifacts.
 import shutil
 from enum import Enum
 from pathlib import Path
+from tempfile import gettempdir
+from typing import Optional
 
 
 class DCOSVariant(Enum):
@@ -41,7 +43,7 @@ class _DCOSInstallerDetails:
 
 def get_dcos_installer_details(
     installer: Path,
-    workspace_dir: Path,
+    workspace_dir: Optional[Path] = None,
     keep_extracted: bool = False,
 ) -> _DCOSInstallerDetails:
     """
@@ -63,6 +65,7 @@ def get_dcos_installer_details(
         message = 'No spaces allowed in path to the installer.'
         raise ValueError(message)
 
+    workspace_dir = workspace_dir or Path(gettempdir())
     if keep_extracted:
         pass
 

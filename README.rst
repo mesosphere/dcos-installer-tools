@@ -1,7 +1,7 @@
-DC/OS Artifact Tools
-====================
+DC/OS Installer Tools
+=====================
 
-Tools for getting information from DC/OS installer artifacts.
+Tools for getting information from DC/OS installers.
 
 Installation
 ------------
@@ -9,6 +9,9 @@ Installation
 .. code:: console
 
    pip install git+https://github.com/adamtheturtle/dcos-installer-tools.git
+
+Usage
+-----
 
 .. code:: python
 

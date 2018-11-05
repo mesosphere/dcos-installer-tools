@@ -38,7 +38,7 @@ setup(
     description='Get information from DC/OS installers.',
     long_description=LONG_DESCRIPTION,
     packages=find_packages(where='src'),
-    zip_safe=False,
+    zip_safe=True,
     package_dir={'': 'src'},
     install_requires=INSTALL_REQUIRES,
     include_package_data=True,

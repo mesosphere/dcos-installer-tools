@@ -7,9 +7,8 @@ yapf:
 	yapf \
 	    --diff \
 	    --recursive \
-	    --exclude src/cli/_vendor \
-	    --exclude src/dcos_e2e/_vendor \
-	    --exclude src/dcos_e2e/_version.py \
+	    --exclude 'src/*/_vendor' \
+	    --exclude 'src/*/_version.py' \
 	    --exclude release/ \
 	    --exclude versioneer.py \
 	    .
@@ -19,7 +18,7 @@ fix-yapf:
 	yapf \
 	    --in-place \
 	    --recursive \
-	    --exclude src/*/_version.py \
+	    --exclude 'src/*/_version.py' \
 	    --exclude versioneer.py \
 	    .
 
@@ -66,10 +65,6 @@ vulture:
 .PHONY: custom-linters
 custom-linters:
 	pytest -vvv -x admin/custom_linters.py
-
-.PHONY: shellcheck
-shellcheck:
-	shellcheck --exclude SC2164,SC1091 admin/*.sh
 
 .PHONY: autoflake
 autoflake:

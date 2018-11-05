@@ -15,7 +15,6 @@ lint: \
     pip-missing-reqs \
     pylint \
     pyroma \
-    shellcheck \
     vulture \
     yapf
 

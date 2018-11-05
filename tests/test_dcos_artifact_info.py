@@ -202,7 +202,7 @@ class TestKeepExtracted:
         By default, the extracted artifact is removed.
         """
         workspace_dir = Path(str(tmpdir))
-        details = get_dcos_installer_details(
+        get_dcos_installer_details(
             installer=oss_artifact,
             workspace_dir=workspace_dir,
         )
@@ -215,7 +215,7 @@ class TestKeepExtracted:
         removed.
         """
         workspace_dir = Path(str(tmpdir))
-        details = get_dcos_installer_details(
+        get_dcos_installer_details(
             installer=oss_artifact,
             workspace_dir=workspace_dir,
             keep_extracted=True,
@@ -223,7 +223,7 @@ class TestKeepExtracted:
 
         genconf_dir = workspace_dir / 'genconf'
         assert genconf_dir.exists()
-        (tarfile, ) = workspace_dir.glob('dcos-genconf.*.tar')
+        (_, ) = workspace_dir.glob('dcos-genconf.*.tar')
 
 
 class TestWorkspaceDir:

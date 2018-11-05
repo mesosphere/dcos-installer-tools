@@ -60,6 +60,8 @@ PATTERNS = {
     'tests/test_dcos_artifact_info.py::TestEnterprise::test_1_12': (EE_1_12, ),
     'tests/test_dcos_artifact_info.py::TestEnterprise::test_1_10': (EE_1_10, ),
     'tests/test_dcos_artifact_info.py::TestEnterprise::test_1_9': (EE_1_9, ),
+    'tests/test_dcos_artifact_info.py::TestKeepExtracted': (OSS_MASTER, ),
+    'tests/test_dcos_artifact_info.py::TestWorkspaceDir': (OSS_MASTER, ),
 }  # type: Dict[str, Tuple]
 
 

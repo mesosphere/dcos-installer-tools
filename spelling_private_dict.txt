@@ -39,6 +39,7 @@ env
 eval
 fallback
 filename
+filesystem
 func
 genconf
 gzip

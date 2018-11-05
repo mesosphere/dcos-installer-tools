@@ -39,8 +39,10 @@ env
 eval
 fallback
 filename
+filesystem
 func
 genconf
+gettempdir
 gzip
 homebrew
 hwclock

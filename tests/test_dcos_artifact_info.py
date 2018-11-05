@@ -233,7 +233,6 @@ class TestParameters:
         assert genconf_dir.exists()
         (_, ) = workspace_dir.glob('dcos-genconf.*.tar')
 
-
     def test_default_workspace_dir(self, oss_artifact: Path) -> None:
         """
         By default, the workspace directory is set to the value of
@@ -255,7 +254,6 @@ class TestParameters:
 
         (tarfile, ) = workspace_dir.glob('dcos-genconf.*.tar')
         tarfile.unlink()
-
 
     def test_space_installer_path(self, tmpdir: local) -> None:
         """

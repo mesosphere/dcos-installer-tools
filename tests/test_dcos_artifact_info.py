@@ -1,5 +1,5 @@
 """
-Tests for ``_is_enterprise``.
+Tests for ``get_dcos_installer_details``.
 """
 
 from pathlib import Path
@@ -8,12 +8,12 @@ from pathlib import Path
 # are disabled.
 from py.path import local  # pylint: disable=no-name-in-module, import-error
 
-from cli.common.utils import _is_enterprise
+from artifact_utils import get_dcos_installer_details, DCOSVariant
 
 
 class TestOSS:
     """
-    Tests for giving OSS artifacts to ``_is_enterprise``.
+    Tests for giving OSS artifacts to ``get_dcos_installer_details``.
 
     We could use pytest parameterization to consolidate these tests, but then
     we would have to store all artifacts and Travis builders run out of space.
@@ -25,12 +25,15 @@ class TestOSS:
         tmpdir: local,
     ) -> None:
         """
-        ``False`` is returned when given a DC/OS OSS master artifact.
+        Details are returned when given a DC/OS OSS master artifact.
         """
-        assert not _is_enterprise(
-            build_artifact=oss_artifact,
+        details = get_dcos_installer_details(
+            installer=oss_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
+
+        assert details.variant == DCOSVariant.OSS
+        assert details.version.startswith('1.13')
 
     def test_1_12(
         self,
@@ -38,9 +41,9 @@ class TestOSS:
         tmpdir: local,
     ) -> None:
         """
-        ``False`` is returned when given a DC/OS OSS 1.12 artifact.
+        Details are returned when given a DC/OS OSS 1.12 artifact.
         """
-        assert not _is_enterprise(
+        assert not get_dcos_installer_details(
             build_artifact=oss_1_12_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
@@ -53,7 +56,7 @@ class TestOSS:
         """
         ``False`` is returned when given a DC/OS OSS 1.11 artifact.
         """
-        assert not _is_enterprise(
+        assert not get_dcos_installer_details(
             build_artifact=oss_1_11_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
@@ -66,7 +69,7 @@ class TestOSS:
         """
         ``False`` is returned when given a DC/OS OSS 1.10 artifact.
         """
-        assert not _is_enterprise(
+        assert not get_dcos_installer_details(
             build_artifact=oss_1_10_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
@@ -79,7 +82,7 @@ class TestOSS:
         """
         ``False`` is returned when given a DC/OS OSS 1.9 artifact.
         """
-        assert not _is_enterprise(
+        assert not get_dcos_installer_details(
             build_artifact=oss_1_9_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
@@ -87,7 +90,7 @@ class TestOSS:
 
 class TestEnterprise:
     """
-    Tests for giving Enterprise artifacts to ``_is_enterprise``.
+    Tests for giving Enterprise artifacts to ``get_dcos_installer_details``.
 
     We could use pytest parameterization to consolidate these tests, but then
     we would have to store all artifacts and Travis builders run out of space.
@@ -101,7 +104,7 @@ class TestEnterprise:
         """
         ``True`` is returned when given a DC/OS Enterprise master artifact.
         """
-        assert _is_enterprise(
+        assert get_dcos_installer_details(
             build_artifact=enterprise_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
@@ -114,7 +117,7 @@ class TestEnterprise:
         """
         ``True`` is returned when given a DC/OS Enterprise 1.12 artifact.
         """
-        assert _is_enterprise(
+        assert get_dcos_installer_details(
             build_artifact=enterprise_1_12_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
@@ -127,7 +130,7 @@ class TestEnterprise:
         """
         ``True`` is returned when given a DC/OS Enterprise 1.11 artifact.
         """
-        assert _is_enterprise(
+        assert get_dcos_installer_details(
             build_artifact=enterprise_1_11_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
@@ -140,7 +143,7 @@ class TestEnterprise:
         """
         ``True`` is returned when given a DC/OS Enterprise 1.10 artifact.
         """
-        assert _is_enterprise(
+        assert get_dcos_installer_details(
             build_artifact=enterprise_1_10_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
@@ -153,7 +156,7 @@ class TestEnterprise:
         """
         ``True`` is returned when given a DC/OS Enterprise 1.9 artifact.
         """
-        assert _is_enterprise(
+        assert get_dcos_installer_details(
             build_artifact=enterprise_1_9_artifact,
             workspace_dir=Path(str(tmpdir)),
         )

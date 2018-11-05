@@ -43,10 +43,13 @@ class TestOSS:
         """
         Details are returned when given a DC/OS OSS 1.12 artifact.
         """
-        assert not get_dcos_installer_details(
-            build_artifact=oss_1_12_artifact,
+        details = get_dcos_installer_details(
+            installer=oss_1_12_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
+
+        assert details.variant == DCOSVariant.OSS
+        assert details.version.startswith('1.12')
 
     def test_1_11(
         self,
@@ -54,12 +57,15 @@ class TestOSS:
         tmpdir: local,
     ) -> None:
         """
-        ``False`` is returned when given a DC/OS OSS 1.11 artifact.
+        Details are returned when given a DC/OS OSS 1.11 artifact.
         """
-        assert not get_dcos_installer_details(
-            build_artifact=oss_1_11_artifact,
+        details = get_dcos_installer_details(
+            installer=oss_1_11_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
+
+        assert details.variant == DCOSVariant.OSS
+        assert details.version.startswith('1.11')
 
     def test_1_10(
         self,
@@ -67,12 +73,15 @@ class TestOSS:
         tmpdir: local,
     ) -> None:
         """
-        ``False`` is returned when given a DC/OS OSS 1.10 artifact.
+        Details are returned when given a DC/OS OSS 1.10 artifact.
         """
-        assert not get_dcos_installer_details(
-            build_artifact=oss_1_10_artifact,
+        details = get_dcos_installer_details(
+            installer=oss_1_10_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
+
+        assert details.variant == DCOSVariant.OSS
+        assert details.version.startswith('1.10')
 
     def test_1_9(
         self,
@@ -80,12 +89,15 @@ class TestOSS:
         tmpdir: local,
     ) -> None:
         """
-        ``False`` is returned when given a DC/OS OSS 1.9 artifact.
+        Details are returned when given a DC/OS OSS 1.9 artifact.
         """
-        assert not get_dcos_installer_details(
-            build_artifact=oss_1_9_artifact,
+        details = get_dcos_installer_details(
+            installer=oss_1_9_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
+
+        assert details.variant == DCOSVariant.OSS
+        assert details.version.startswith('1.9')
 
 
 class TestEnterprise:
@@ -102,12 +114,15 @@ class TestEnterprise:
         tmpdir: local,
     ) -> None:
         """
-        ``True`` is returned when given a DC/OS Enterprise master artifact.
+        Details are returned when given a DC/OS Enterprise master artifact.
         """
-        assert get_dcos_installer_details(
-            build_artifact=enterprise_artifact,
+        details = get_dcos_installer_details(
+            installer=enterprise_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
+
+        assert details.variant == DCOSVariant.ENTERPRISE
+        assert details.version.startswith('1.13')
 
     def test_1_12(
         self,
@@ -115,12 +130,15 @@ class TestEnterprise:
         tmpdir: local,
     ) -> None:
         """
-        ``True`` is returned when given a DC/OS Enterprise 1.12 artifact.
+        Details are returned when given a DC/OS Enterprise 1.12 artifact.
         """
-        assert get_dcos_installer_details(
-            build_artifact=enterprise_1_12_artifact,
+        details = get_dcos_installer_details(
+            installer=enterprise_1_12_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
+
+        assert details.variant == DCOSVariant.ENTERPRISE
+        assert details.version.startswith('1.12')
 
     def test_1_11(
         self,
@@ -128,12 +146,15 @@ class TestEnterprise:
         tmpdir: local,
     ) -> None:
         """
-        ``True`` is returned when given a DC/OS Enterprise 1.11 artifact.
+        Details are returned when given a DC/OS Enterprise 1.11 artifact.
         """
-        assert get_dcos_installer_details(
-            build_artifact=enterprise_1_11_artifact,
+        details = get_dcos_installer_details(
+            installer=enterprise_1_11_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
+
+        assert details.variant == DCOSVariant.ENTERPRISE
+        assert details.version.startswith('1.11')
 
     def test_1_10(
         self,
@@ -141,12 +162,15 @@ class TestEnterprise:
         tmpdir: local,
     ) -> None:
         """
-        ``True`` is returned when given a DC/OS Enterprise 1.10 artifact.
+        Details are returned when given a DC/OS Enterprise 1.10 artifact.
         """
-        assert get_dcos_installer_details(
-            build_artifact=enterprise_1_10_artifact,
+        details = get_dcos_installer_details(
+            installer=enterprise_1_10_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
+
+        assert details.variant == DCOSVariant.ENTERPRISE
+        assert details.version.startswith('1.10')
 
     def test_1_9(
         self,
@@ -154,9 +178,18 @@ class TestEnterprise:
         tmpdir: local,
     ) -> None:
         """
-        ``True`` is returned when given a DC/OS Enterprise 1.9 artifact.
+        Details are returned when given a DC/OS Enterprise 1.9 artifact.
         """
-        assert get_dcos_installer_details(
-            build_artifact=enterprise_1_9_artifact,
+        details = get_dcos_installer_details(
+            installer=enterprise_1_9_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
+
+        assert details.variant == DCOSVariant.ENTERPRISE
+        assert details.version.startswith('1.9')
+
+class TestKeepExisting:
+    pass
+
+class TestWorkspaceDir:
+    pass

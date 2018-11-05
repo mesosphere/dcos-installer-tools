@@ -1,7 +1,10 @@
-sudo: false
+sudo: required
+services:
+- docker
 addons:
   apt:
     packages:
+    - docker-ce
     - enchant
 language: python
 python:

@@ -190,8 +190,24 @@ class TestEnterprise:
 
 
 class TestKeepExisting:
-    pass
 
+    def test_default(
+        self,
+        oss_artifact: Path,
+        tmpdir: local,
+    ) -> None:
+        """
+        Details are returned when given a DC/OS OSS master artifact.
+        """
+        workspace_dir = Path(str(tmpdir))
+        details = get_dcos_installer_details(
+            installer=oss_artifact,
+            workspace_dir=workspace_dir,
+            keep_extracted=True,
+        )
 
-class TestWorkspaceDir:
-    pass
+        filenames = {item.name for item in workspace_dir.iterdir()}
+        filenames.remove('genconf')
+        (tarfile, ) = filenames
+        assert tarfile.startswith('dcos-genconf')
+        assert tarfile.endswith('.tar')

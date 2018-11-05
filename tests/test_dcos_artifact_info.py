@@ -6,6 +6,7 @@ import shutil
 from pathlib import Path
 from tempfile import gettempdir
 
+import pytest
 # See https://github.com/PyCQA/pylint/issues/1536 for details on why the errors
 # are disabled.
 from py.path import local  # pylint: disable=no-name-in-module, import-error
@@ -191,13 +192,16 @@ class TestEnterprise:
         assert details.version.startswith('1.9')
 
 
-class TestKeepExtracted:
+class TestParameters:
     """
-    Tests for the ``keep_extracted`` parameter to
-    ``get_dcos_installer_details``.
+    Tests for the parameters to ``get_dcos_installer_details``.
     """
 
-    def test_default(self, oss_artifact: Path, tmpdir: local) -> None:
+    def test_default_keep_extracted(
+        self,
+        oss_artifact: Path,
+        tmpdir: local,
+    ) -> None:
         """
         By default, the extracted artifact is removed.
         """
@@ -209,7 +213,11 @@ class TestKeepExtracted:
 
         assert not list(workspace_dir.iterdir())
 
-    def test_true(self, oss_artifact: Path, tmpdir: local) -> None:
+    def test_keep_extracted_true(
+        self,
+        oss_artifact: Path,
+        tmpdir: local,
+    ) -> None:
         """
         If ``keep_extracted`` is set to ``True``, the extracted artifact is not
         removed.
@@ -226,15 +234,10 @@ class TestKeepExtracted:
         (_, ) = workspace_dir.glob('dcos-genconf.*.tar')
 
 
-class TestWorkspaceDir:
-    """
-    Tests for the ``workspace_dir`` parameter to
-    ``get_dcos_installer_details``.
-    """
-
-    def test_default(self, oss_artifact: Path) -> None:
+    def test_default_workspace_dir(self, oss_artifact: Path) -> None:
         """
-        By default, the extracted artifact is removed.
+        By default, the workspace directory is set to the value of
+        ``gettempdir()``.
         """
         # We check that the filesystem is in an appropriate state to run the
         # test.
@@ -252,3 +255,19 @@ class TestWorkspaceDir:
 
         (tarfile, ) = workspace_dir.glob('dcos-genconf.*.tar')
         tarfile.unlink()
+
+
+    def test_space_installer_path(self, tmpdir: local) -> None:
+        """
+        Spaces are not allowed in the installer path.
+        """
+        # We check that the filesystem is in an appropriate state to run the
+        # test.
+        tmpdir_path = Path(str(tmpdir))
+        path_with_space = tmpdir_path / 'example space' / 'dcos_config.sh'
+
+        with pytest.raises(ValueError) as exc:
+            get_dcos_installer_details(installer=path_with_space)
+
+        expected_message = 'No spaces allowed in path to the installer.'
+        assert str(exc.value) == expected_message

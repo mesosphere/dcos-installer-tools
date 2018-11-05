@@ -1,3 +1,7 @@
+|Build Status|
+
+|codecov|
+
 DC/OS Installer Tools
 =====================
 
@@ -37,3 +41,8 @@ Exceptions which may be raised include:
 
 * ``ValueError``: A space was in the path to the artifact.
 * ``CalledProcessError``: An error was encountered when extracting the given artifact.
+
+.. |Build Status| image:: https://travis-ci.com/adamtheturtle/dcos-installer-tools.svg?branch=master
+   :target: https://travis-ci.com/adamtheturtle/dcos-installer-tools
+.. |codecov| image:: https://codecov.io/gh/adamtheturtle/dcos-installer-tools/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/adamtheturtle/dcos-installer-tools

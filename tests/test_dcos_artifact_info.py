@@ -189,7 +189,7 @@ class TestEnterprise:
         assert details.version.startswith('1.9')
 
 
-class TestKeepExisting:
+class TestKeepExtracted:
 
     def test_default(
         self,
@@ -197,7 +197,24 @@ class TestKeepExisting:
         tmpdir: local,
     ) -> None:
         """
-        Details are returned when given a DC/OS OSS master artifact.
+        By default, the extracted artifact is removed.
+        """
+        workspace_dir = Path(str(tmpdir))
+        details = get_dcos_installer_details(
+            installer=oss_artifact,
+            workspace_dir=workspace_dir,
+        )
+
+        assert not list(workspace_dir.iterdir())
+
+    def test_true(
+        self,
+        oss_artifact: Path,
+        tmpdir: local,
+    ) -> None:
+        """
+        If ``keep_extracted`` is set to ``True``, the extracted artifact is not
+        removed.
         """
         workspace_dir = Path(str(tmpdir))
         details = get_dcos_installer_details(

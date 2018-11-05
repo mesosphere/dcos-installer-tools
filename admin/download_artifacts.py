@@ -48,7 +48,6 @@ EE_1_10 = (EE_1_10_ARTIFACT_URL, EE_1_10_ARTIFACT_PATH)
 EE_1_11 = (EE_1_11_ARTIFACT_URL, EE_1_11_ARTIFACT_PATH)
 EE_1_12 = (EE_1_12_ARTIFACT_URL, EE_1_12_ARTIFACT_PATH)
 
-
 PATTERNS = {
     'tests/test_dcos_artifact_info.py::TestOSS::test_master': (OSS_MASTER, ),
     'tests/test_dcos_artifact_info.py::TestOSS::test_1_11': (OSS_1_11, ),
@@ -84,9 +83,9 @@ def _download_file(url: str, path: Path) -> None:
     ) as file_descriptor:
         content_iter = stream.iter_content(chunk_size=chunk_size)
         with click.progressbar(  # type: ignore
-            content_iter,
-            length=content_length / chunk_size,
-            label=label,
+                content_iter,
+                length=content_length / chunk_size,
+                label=label,
         ) as progress_bar:
             for chunk in progress_bar:
                 # Filter out keep-alive new chunks.

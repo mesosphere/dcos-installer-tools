@@ -8,7 +8,7 @@ from pathlib import Path
 # are disabled.
 from py.path import local  # pylint: disable=no-name-in-module, import-error
 
-from artifact_utils import get_dcos_installer_details, DCOSVariant
+from artifact_utils import DCOSVariant, get_dcos_installer_details
 
 
 class TestOSS:
@@ -188,8 +188,10 @@ class TestEnterprise:
         assert details.variant == DCOSVariant.ENTERPRISE
         assert details.version.startswith('1.9')
 
+
 class TestKeepExisting:
     pass
+
 
 class TestWorkspaceDir:
     pass

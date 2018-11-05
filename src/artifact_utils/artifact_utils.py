@@ -2,7 +2,10 @@
 Tools for getting details from DC/OS installer artifacts.
 """
 
+import json
 import shutil
+import subprocess
+import uuid
 from enum import Enum
 from pathlib import Path
 from tempfile import gettempdir
@@ -31,6 +34,8 @@ class _DCOSInstallerDetails:
 
     def __init__(self, variant: DCOSVariant, version: str) -> None:
         """
+        Details of a DC/OS installer.
+
         Args:
             variant: The DC/OS variant which can be installed by a particular
                 installer.
@@ -87,13 +92,14 @@ def get_dcos_installer_details(
     )
 
     version_info = json.loads(result)
-    variant = version_info['variant']
 
-    self.version = version_info['version']
-    self.variant = {
+    version = version_info['version']
+    variant = {
         'ee': DCOSVariant.ENTERPRISE,
         '': DCOSVariant.OSS,
-    }[variant]
+    }[version_info['variant']]
 
     if not keep_extracted:
         shutil.rmtree(path=str(workspace_dir))
+
+    return _DCOSInstallerDetails(version=version, variant=variant)

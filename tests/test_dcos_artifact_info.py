@@ -2,7 +2,9 @@
 Tests for ``get_dcos_installer_details``.
 """
 
+import shutil
 from pathlib import Path
+from tempfile import gettempdir
 
 # See https://github.com/PyCQA/pylint/issues/1536 for details on why the errors
 # are disabled.
@@ -195,11 +197,7 @@ class TestKeepExtracted:
     ``get_dcos_installer_details``.
     """
 
-    def test_default(
-        self,
-        oss_artifact: Path,
-        tmpdir: local,
-    ) -> None:
+    def test_default(self, oss_artifact: Path, tmpdir: local) -> None:
         """
         By default, the extracted artifact is removed.
         """
@@ -211,11 +209,7 @@ class TestKeepExtracted:
 
         assert not list(workspace_dir.iterdir())
 
-    def test_true(
-        self,
-        oss_artifact: Path,
-        tmpdir: local,
-    ) -> None:
+    def test_true(self, oss_artifact: Path, tmpdir: local) -> None:
         """
         If ``keep_extracted`` is set to ``True``, the extracted artifact is not
         removed.
@@ -227,8 +221,34 @@ class TestKeepExtracted:
             keep_extracted=True,
         )
 
-        filenames = {item.name for item in workspace_dir.iterdir()}
-        filenames.remove('genconf')
-        (tarfile, ) = filenames
-        assert tarfile.startswith('dcos-genconf')
-        assert tarfile.endswith('.tar')
+        genconf_dir = workspace_dir / 'genconf'
+        assert genconf_dir.exists()
+        (tarfile, ) = workspace_dir.glob('dcos-genconf.*.tar')
+
+
+class TestWorkspaceDir:
+    """
+    Tests for the ``workspace_dir`` parameter to
+    ``get_dcos_installer_details``.
+    """
+
+    def test_default(self, oss_artifact: Path) -> None:
+        """
+        By default, the extracted artifact is removed.
+        """
+        # We check that the filesystem is in an appropriate state to run the
+        # test.
+        workspace_dir = Path(gettempdir())
+        genconf_dir = workspace_dir / 'genconf'
+        assert not genconf_dir.exists()
+        assert not list(workspace_dir.glob('dcos-genconf.*.tar'))
+
+        get_dcos_installer_details(
+            installer=oss_artifact,
+            keep_extracted=True,
+        )
+        assert genconf_dir.exists()
+        shutil.rmtree(path=str(genconf_dir))
+
+        (tarfile, ) = workspace_dir.glob('dcos-genconf.*.tar')
+        tarfile.unlink()

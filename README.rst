@@ -5,7 +5,27 @@
 DC/OS Installer Tools
 =====================
 
-Tools for getting information from DC/OS installers.
+A DC/OS installer provides the following interface:
+
+.. code:: console
+
+   $ bash dcos_generate_config.sh --version
+   Extracting image from this script and loading into docker daemon, this step can take a few minutes
+   x dcos-genconf.75af9b2571de95e074-c74aa914537fa9f81b.tar
+   Loaded image: mesosphere/dcos-genconf:75af9b2571de95e074-c74aa914537fa9f81b
+   {
+     "variant": "",
+     "version": "1.12.0-rc3"
+   }
+   $ bash dcos_generate_config.sh --version
+   {
+     "variant": "",
+     "version": "1.12.0-rc3"
+   }
+
+For DC/OS Enterprise installers, the ``"variant"`` key is set to ``"ee"``.
+
+This is a Python library for collecting the outputted information from the installer.
 
 Installation
 ------------
@@ -21,12 +41,13 @@ Usage
 
    from pathlib import Path
 
-   from dcos_artifact_tools import DCOSVariant, get_dcos_installer_details
+   from artifact_utils import DCOSVariant, get_dcos_installer_details
 
    installer = Path('/Users/Eleanor/Documents/dcos_generate_config.sh')
    details = get_dcos_installer_details(installer=installer)
    assert details.version == '1.12'
    assert details.variant == DCOSVariant.OSS
+   assert details.variant != DCOSVariant.ENTERPRISE
 
 Determining details about the artifact requires extracting the artifact.
 Extracting the artifact requires over a gigabyte of space in a workspace directory.

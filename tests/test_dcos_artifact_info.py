@@ -190,6 +190,10 @@ class TestEnterprise:
 
 
 class TestKeepExtracted:
+    """
+    Tests for the ``keep_extracted`` parameter to
+    ``get_dcos_installer_details``.
+    """
 
     def test_default(
         self,

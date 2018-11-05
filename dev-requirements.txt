@@ -1,5 +1,7 @@
+PyYAML==4.2b4
 autoflake==1.2
 check-manifest==0.37
+click==7.0
 doc8==0.8.0
 flake8-commas==2.0.0
 flake8-quotes==1.0.0
@@ -14,6 +16,7 @@ pygithub==1.43.2
 pylint==2.1.1
 pyroma==2.4
 pytest-cov==2.6.0  # Measure code coverage
+requests==2.20.0
 vulture==1.0
 yapf==0.24.0
 # We should also use https://github.com/pyga/ebb-lint when it is released for

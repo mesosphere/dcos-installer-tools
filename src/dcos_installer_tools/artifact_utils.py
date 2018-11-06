@@ -66,10 +66,6 @@ def get_dcos_installer_details(
         ValueError: A space is in the installer path.
         CalledProcessError: There was an error extracting the given installer.
     """
-    if ' ' in str(installer):
-        message = 'No spaces allowed in path to the installer.'
-        raise ValueError(message)
-
     workspace_dir = workspace_dir or Path(gettempdir())
     if not keep_extracted:
         workspace_dir = Path(workspace_dir) / uuid.uuid4().hex

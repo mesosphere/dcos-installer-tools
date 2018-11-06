@@ -60,6 +60,8 @@ This will be in the same directory as the given ``installer``.
 
 Exceptions which may be raised include:
 
+* ``ValueError``: A space was in the path to the artifact.
+  See `DCOS_OSS-4429 <https://jira.mesosphere.com/browse/DCOS_OSS-4429>`_.
 * ``CalledProcessError``: An error was encountered when extracting the given artifact.
 
 .. |Build Status| image:: https://travis-ci.com/adamtheturtle/dcos-installer-tools.svg?branch=master

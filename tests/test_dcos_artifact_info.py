@@ -263,8 +263,6 @@ class TestParameters:
         """
         Spaces are not allowed in the installer path.
         """
-        # We check that the filesystem is in an appropriate state to run the
-        # test.
         tmpdir_path = Path(str(tmpdir))
         target_dir = tmpdir_path / 'example space'
         target_dir.mkdir()
@@ -274,5 +272,8 @@ class TestParameters:
         with pytest.raises(ValueError) as exc:
             get_dcos_installer_details(installer=new_artifact)
 
-        expected_message = 'No spaces allowed in path to the installer.'
+        expected_message = (
+            'No spaces allowed in path to the installer. '
+            'See https://jira.mesosphere.com/browse/DCOS_OSS-4429.'
+        )
         assert str(exc.value) == expected_message

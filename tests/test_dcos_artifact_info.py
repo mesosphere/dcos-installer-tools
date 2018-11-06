@@ -255,17 +255,24 @@ class TestParameters:
         (tarfile, ) = workspace_dir.glob('dcos-genconf.*.tar')
         tarfile.unlink()
 
-    def test_space_installer_path(self, tmpdir: local) -> None:
+    def test_space_installer_path(
+        self,
+        oss_artifact: Path,
+        tmpdir: local,
+    ) -> None:
         """
         Spaces are not allowed in the installer path.
         """
         # We check that the filesystem is in an appropriate state to run the
         # test.
         tmpdir_path = Path(str(tmpdir))
-        path_with_space = tmpdir_path / 'example space' / 'dcos_config.sh'
+        target_dir = tmpdir_path / 'example space'
+        target_dir.mkdir()
+        new_artifact = target_dir / oss_artifact.name
+        shutil.copyfile(src=str(oss_artifact), dst=str(new_artifact))
 
         with pytest.raises(ValueError) as exc:
-            get_dcos_installer_details(installer=path_with_space)
+            get_dcos_installer_details(installer=new_artifact)
 
         expected_message = 'No spaces allowed in path to the installer.'
         assert str(exc.value) == expected_message

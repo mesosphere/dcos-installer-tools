@@ -58,9 +58,11 @@ By default, the extracted artifact is removed.
 Set the ``keep_extracted`` parameter to of ``get_dcos_installer_details`` to ``True`` to keep the extracted artifact.
 This will be in the same directory as the given ``installer``.
 
-Exceptions which may be raised include:
+Exceptions
+~~~~~~~~~~
 
 * ``ValueError``: A space was in the path to the artifact.
+  See `DCOS_OSS-4429 <https://jira.mesosphere.com/browse/DCOS_OSS-4429>`_.
 * ``CalledProcessError``: An error was encountered when extracting the given artifact.
 
 .. |Build Status| image:: https://travis-ci.com/adamtheturtle/dcos-installer-tools.svg?branch=master

@@ -53,6 +53,7 @@ installable
 invalidversion
 ip
 journalctl
+json
 keyring
 lastResort
 linters

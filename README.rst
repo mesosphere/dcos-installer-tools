@@ -41,7 +41,7 @@ Usage
 
    from pathlib import Path
 
-   from artifact_utils import DCOSVariant, get_dcos_installer_details
+   from dcos_installer_tools import DCOSVariant, get_dcos_installer_details
 
    installer = Path('/Users/Eleanor/Documents/dcos_generate_config.sh')
    details = get_dcos_installer_details(installer=installer)

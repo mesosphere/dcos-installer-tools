@@ -11,7 +11,7 @@ import pytest
 # are disabled.
 from py.path import local  # pylint: disable=no-name-in-module, import-error
 
-from artifact_utils import DCOSVariant, get_dcos_installer_details
+from dcos_installer_tools import DCOSVariant, get_dcos_installer_details
 
 
 class TestOSS:

@@ -32,7 +32,7 @@ Installation
 
 .. code:: console
 
-   pip install git+https://github.com/adamtheturtle/dcos-installer-tools.git
+   pip install git+https://github.com/mesosphere/dcos-installer-tools.git
 
 Usage
 -----

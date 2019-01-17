@@ -65,7 +65,7 @@ Exceptions
   See `DCOS_OSS-4429 <https://jira.mesosphere.com/browse/DCOS_OSS-4429>`_.
 * ``CalledProcessError``: An error was encountered when extracting the given artifact.
 
-.. |Build Status| image:: https://travis-ci.com/adamtheturtle/dcos-installer-tools.svg?branch=master
-   :target: https://travis-ci.com/adamtheturtle/dcos-installer-tools
-.. |codecov| image:: https://codecov.io/gh/adamtheturtle/dcos-installer-tools/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/adamtheturtle/dcos-installer-tools
+.. |Build Status| image:: https://travis-ci.com/mesosphere/dcos-installer-tools.svg?branch=master
+   :target: https://travis-ci.com/mesosphere/dcos-installer-tools
+.. |codecov| image:: https://codecov.io/gh/mesosphere/dcos-installer-tools/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/mesosphere/dcos-installer-tools

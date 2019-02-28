@@ -6,20 +6,20 @@ click==7.0
 doc8==0.8.0
 flake8-commas==2.0.0
 flake8-quotes==1.0.0
-flake8==3.6.0
-isort==4.3.4
-mypy==0.660
-mypy-mypyc==0.660
+flake8==3.7.7
+isort==4.3.9
+mypy==0.670
+mypy-mypyc==0.670
 pip_check_reqs==2.0.3
-py==1.7.0
+py==1.8.0
 pydocstyle==3.0.0
 pyenchant==2.0.0
-pygithub==1.43.4
-pylint==2.2.2
+pygithub==1.43.5
+pylint==2.3.0
 pyroma==2.4
 pytest-cov==2.6.1  # Measure code coverage
 requests==2.21.0
 vulture==1.0
-yapf==0.25.0
+yapf==0.26.0
 # We should also use https://github.com/pyga/ebb-lint when it is released for
 # Python 3.6.

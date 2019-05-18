@@ -36,6 +36,22 @@ class TestOSS:
         )
 
         assert details.variant == DCOSVariant.OSS
+        assert details.version.startswith('1.14')
+
+    def test_1_13(
+        self,
+        oss_1_13_artifact: Path,
+        tmpdir: local,
+    ) -> None:
+        """
+        Details are returned when given a DC/OS OSS 1.13 artifact.
+        """
+        details = get_dcos_installer_details(
+            installer=oss_1_13_artifact,
+            workspace_dir=Path(str(tmpdir)),
+        )
+
+        assert details.variant == DCOSVariant.OSS
         assert details.version.startswith('1.13')
 
     def test_1_12(
@@ -121,6 +137,22 @@ class TestEnterprise:
         """
         details = get_dcos_installer_details(
             installer=enterprise_artifact,
+            workspace_dir=Path(str(tmpdir)),
+        )
+
+        assert details.variant == DCOSVariant.ENTERPRISE
+        assert details.version.startswith('1.14')
+
+    def test_1_13(
+        self,
+        enterprise_1_13_artifact: Path,
+        tmpdir: local,
+    ) -> None:
+        """
+        Details are returned when given a DC/OS Enterprise 1.13 artifact.
+        """
+        details = get_dcos_installer_details(
+            installer=enterprise_1_13_artifact,
             workspace_dir=Path(str(tmpdir)),
         )
 

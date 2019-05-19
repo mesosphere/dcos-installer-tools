@@ -85,3 +85,19 @@ def enterprise_1_12_artifact() -> Path:
     Return the path to a build artifact for DC/OS Enterprise 1.12.
     """
     return Path('/tmp/dcos_generate_config_1_12.ee.sh')
+
+
+@pytest.fixture()
+def oss_1_13_artifact() -> Path:
+    """
+    Return the path to a build artifact for DC/OS OSS 1.13.
+    """
+    return Path('/tmp/dcos_generate_config_1_13.sh')
+
+
+@pytest.fixture()
+def enterprise_1_13_artifact() -> Path:
+    """
+    Return the path to a build artifact for DC/OS Enterprise 1.13.
+    """
+    return Path('/tmp/dcos_generate_config_1_13.ee.sh')
